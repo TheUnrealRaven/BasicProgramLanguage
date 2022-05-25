@@ -78,12 +78,12 @@ naredba:
                                         }
       | ForEachTK '(' container ')' ';' {}
       | IfTk '(' condExpr ')' '{' naredba '}' ElseTk '{' naredba '}' { 
-                                                                        $$ = new IfElseCondition($3, $6);
+                                                                        $$ = new IfElseCondition($3, $6, $10);
                                                                         $$->run();
                                                                      } 
       | WhileTk '(' condExpr ')' '{' niz_naredbi '}'  { 
-                                                            $$ = new WhileCondition($6, $3);
-                                                            $$->run();
+                                                          //  $$ = new WhileCondition($6, $3);
+                                                           // $$->run();
                                                       }
       ;
 niz_naredbi: niz_naredbi naredba {$$->push_back($2); }
@@ -97,15 +97,15 @@ condExpr:
       | expr NeEqualTk expr { $$ = new NeEqualExpr($1, $3);}
       | expr LessEqualTk expr {$$ = new LessEqualExprAst($1, $3); }
       | expr GreaterEqualTk expr { $$ = new GreaterEqualExprAst($1, $3);}
-      | expr '<' expr { $$ = new LessExprAst(std::move($1), std::move($3));}
-      | expr '>' expr { $$ = new GreaterExprAst(std::move($1), std::move($3));}
+      | expr '<' expr { $$ = new LessExprAst($1, $3);}
+      | expr '>' expr { $$ = new GreaterExprAst($1, $3);}
       ;
 expr:
       expr '+' expr { 
                       $$ = new AddExprAst($1,$3);
                     }
       | expr '-' expr { $$ = new SubExprAst($1,$3);}
-      | '-' expr %prec UMINUS {$$ = new UnaryMinusAst(std::move($2)); }
+      | '-' expr %prec UMINUS {$$ = new UnaryMinusAst($2); }
       | expr '*' expr { $$ = new MulExprAst($1, $3); }
       | expr '/' expr { $$ = new DivExprAst($1, $3); }
       | expr IncTk { $$ = new IncExprAst($1); }

@@ -32,8 +32,8 @@ class PrintStrings: public Instruction
 class IfElseCondition: public Instruction
 {
       public:
-            IfElseCondition(Expr *expr,Instruction* instr)
-            :expression(expr), instr(instr){}
+            IfElseCondition(Expr *expr,Instruction* instr1, Instruction* instr2)
+            :expression(expr), _instr1(instr1), _instr2(instr2){}
             
             virtual ~IfElseCondition();
             Instruction* copy() override;
@@ -43,7 +43,8 @@ class IfElseCondition: public Instruction
       
       private:
             Expr *expression;
-            Instruction *instr;
+            Instruction *_instr1;
+            Instruction *_instr2;
 
 };
 

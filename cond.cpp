@@ -25,10 +25,11 @@ PrintStrings::~PrintStrings()
 
 IfElseCondition::~IfElseCondition()
 {
-      if(expression != nullptr && instr != nullptr)
+      if(expression != nullptr && _instr1 != nullptr && _instr2 != nullptr)
       {
             delete expression;
-            delete instr;
+            delete _instr1;
+            delete _instr2;
       } 
 }
 Instruction* IfElseCondition::copy() 
@@ -38,17 +39,21 @@ Instruction* IfElseCondition::copy()
 void IfElseCondition::run() const 
 {
       if(expression->value() != 0)
-            instr->run();
+            _instr1->run();
+      else
+            _instr2->run();
 }
 IfElseCondition& IfElseCondition::operator=(const IfElseCondition& op)
 {
       if(this != &op)
       {
             delete expression;
-            delete instr;
+            delete _instr1;
+            delete _instr2;
             
             this->expression = op.expression->copy();
-            this->instr = op.instr->copy();
+            this->_instr1 = op._instr1->copy();
+            this->_instr2 = op._instr2->copy();
       }
       
       return *this;
@@ -56,7 +61,8 @@ IfElseCondition& IfElseCondition::operator=(const IfElseCondition& op)
 IfElseCondition::IfElseCondition(const IfElseCondition *con)
 {
       this->expression = con->expression->copy();
-      this->instr = con->instr->copy();
+      this->_instr1 = con->_instr1->copy();
+      this->_instr2 = con->_instr2->copy();
 }
 
 Instruction* WhileCondition::copy()

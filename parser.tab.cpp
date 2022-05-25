@@ -1344,7 +1344,7 @@ yyreduce:
   case 8:
 #line 80 "parser.ypp"
     { 
-                                                                        (yyval.ins) = new IfElseCondition((yyvsp[-8].expr), (yyvsp[-5].ins));
+                                                                        (yyval.ins) = new IfElseCondition((yyvsp[-8].expr), (yyvsp[-5].ins), (yyvsp[-1].ins));
                                                                         (yyval.ins)->run();
                                                                      }
 #line 1351 "parser.tab.cpp"
@@ -1353,8 +1353,8 @@ yyreduce:
   case 9:
 #line 84 "parser.ypp"
     { 
-                                                            (yyval.ins) = new WhileCondition((yyvsp[-1].vec), (yyvsp[-4].expr));
-                                                            (yyval.ins)->run();
+                                                          //  $$ = new WhileCondition($6, $3);
+                                                           // $$->run();
                                                       }
 #line 1360 "parser.tab.cpp"
     break;
@@ -1400,13 +1400,13 @@ yyreduce:
 
   case 16:
 #line 100 "parser.ypp"
-    { (yyval.expr) = new LessExprAst(std::move((yyvsp[-2].expr)), std::move((yyvsp[0].expr)));}
+    { (yyval.expr) = new LessExprAst((yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1405 "parser.tab.cpp"
     break;
 
   case 17:
 #line 101 "parser.ypp"
-    { (yyval.expr) = new GreaterExprAst(std::move((yyvsp[-2].expr)), std::move((yyvsp[0].expr)));}
+    { (yyval.expr) = new GreaterExprAst((yyvsp[-2].expr), (yyvsp[0].expr));}
 #line 1411 "parser.tab.cpp"
     break;
 
@@ -1426,7 +1426,7 @@ yyreduce:
 
   case 20:
 #line 108 "parser.ypp"
-    {(yyval.expr) = new UnaryMinusAst(std::move((yyvsp[0].expr))); }
+    {(yyval.expr) = new UnaryMinusAst((yyvsp[0].expr)); }
 #line 1431 "parser.tab.cpp"
     break;
 

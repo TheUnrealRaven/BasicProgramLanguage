@@ -80,7 +80,7 @@ class StrAddAst: public BinOpStr
 class OneOperandAst: public Expr
 {
       public:
-            OneOperandAst(Expr* expr)
+            explicit OneOperandAst(Expr* expr)
             :_expr(expr)
             {}
             
@@ -99,7 +99,7 @@ class OneOperandAst: public Expr
 class UnaryMinusAst:public OneOperandAst
 {
       public:
-            UnaryMinusAst(Expr* expr)
+            explicit UnaryMinusAst(Expr* expr)
             :OneOperandAst(expr) {}
             
             virtual int value() const override;
@@ -132,7 +132,7 @@ class BinOp: public Expr
 class Constant: public Expr
 {
     public:
-      Constant(int x)
+      explicit Constant(int x)
       :_val(x)
       {}
       
@@ -201,7 +201,7 @@ class ModExprAst: public BinOp
 class IncExprAst: public OneOperandAst
 {
       public:
-            IncExprAst(Expr *expr)
+            explicit IncExprAst(Expr *expr)
             :OneOperandAst(expr) {}
             
             virtual int value() const override;
@@ -211,7 +211,7 @@ class IncExprAst: public OneOperandAst
 class DecExprAst: public OneOperandAst
 {
       public:
-            DecExprAst(Expr *expr)
+            explicit DecExprAst(Expr *expr)
             :OneOperandAst(expr)
             {}
             
