@@ -32,13 +32,12 @@ class PrintStrings: public Instruction
 class IfElseCondition: public Instruction
 {
       public:
-            IfElseCondition(Expr *expr,Instruction* instr1, Instruction* instr2)
+            IfElseCondition(Expr *expr,Instruction* instr1, Instruction* instr2 = nullptr)
             :expression(expr), _instr1(instr1), _instr2(instr2){}
             
             virtual ~IfElseCondition();
             Instruction* copy() override;
             void run() const override;
-            IfElseCondition& operator=(const IfElseCondition& op);
             IfElseCondition(const IfElseCondition *con);
       
       private:

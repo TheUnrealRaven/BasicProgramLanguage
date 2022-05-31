@@ -280,5 +280,24 @@ class LessExprAst: public BinOp
             virtual Expr* copy() const override;
 };
 
+class Variable: public Expr
+{
+      public:
+            Variable(Expr *expr)
+            :_expr(expr) {}
+            
+            int value() const override;
+            Expr* copy() const override;
+            
+            ~Variable();
+     protected:
+            Expr* _expr;
+            
+};
+
+
+
+
+
 
 #endif

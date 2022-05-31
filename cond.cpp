@@ -40,24 +40,9 @@ void IfElseCondition::run() const
 {
       if(expression->value() != 0)
             _instr1->run();
-      else
-            _instr2->run();
-}
-IfElseCondition& IfElseCondition::operator=(const IfElseCondition& op)
-{
-      if(this != &op)
-      {
-            delete expression;
-            delete _instr1;
-            delete _instr2;
-            
-            this->expression = op.expression->copy();
-            this->_instr1 = op._instr1->copy();
-            this->_instr2 = op._instr2->copy();
-      }
       
-      return *this;
 }
+
 IfElseCondition::IfElseCondition(const IfElseCondition *con)
 {
       this->expression = con->expression->copy();

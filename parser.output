@@ -1,3 +1,8 @@
+Terminals unused in grammar
+
+    ElseTk
+
+
 Grammar
 
     0 $accept: program $end
@@ -9,98 +14,100 @@ Grammar
     4        | PrintbTk '(' condExpr ')' ';'
     5        | PrintStrTk '(' strexpr ')' ';'
     6        | ForEachTK '(' container ')' ';'
-    7        | IfTk '(' condExpr ')' '{' naredba '}' ElseTk '{' naredba '}'
+    7        | IfTk '(' condExpr ')' '{' naredba '}'
     8        | WhileTk '(' condExpr ')' '{' niz_naredbi '}'
+    9        | VarTk NameTk '=' expr ';'
 
-    9 niz_naredbi: niz_naredbi naredba
-   10            | naredba
+   10 niz_naredbi: niz_naredbi naredba
+   11            | naredba
 
-   11 condExpr: expr EqualTk expr
-   12         | expr NeEqualTk expr
-   13         | expr LessEqualTk expr
-   14         | expr GreaterEqualTk expr
-   15         | expr '<' expr
-   16         | expr '>' expr
+   12 condExpr: expr EqualTk expr
+   13         | expr NeEqualTk expr
+   14         | expr LessEqualTk expr
+   15         | expr GreaterEqualTk expr
+   16         | expr '<' expr
+   17         | expr '>' expr
 
-   17 expr: expr '+' expr
-   18     | expr '-' expr
-   19     | '-' expr
-   20     | expr '*' expr
-   21     | expr '/' expr
-   22     | expr IncTk
-   23     | expr DecTk
-   24     | expr '%' expr
-   25     | VarTk '=' expr
-   26     | NumTk
+   18 expr: expr '+' expr
+   19     | expr '-' expr
+   20     | '-' expr
+   21     | expr '*' expr
+   22     | expr '/' expr
+   23     | expr IncTk
+   24     | expr DecTk
+   25     | expr '%' expr
+   26     | NameTk
+   27     | NumTk
 
-   27 strexpr: strexpr '+' strexpr
-   28        | NumTk '*' strexpr
-   29        | strexpr '*' NumTk
-   30        | StrTk
+   28 strexpr: strexpr '+' strexpr
+   29        | NumTk '*' strexpr
+   30        | strexpr '*' NumTk
+   31        | StrTk
 
-   31 container: %empty
+   32 container: %empty
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
-    '%' (37) 24
+    '%' (37) 25
     '(' (40) 3 4 5 6 7 8
     ')' (41) 3 4 5 6 7 8
-    '*' (42) 20 28 29
-    '+' (43) 17 27
-    '-' (45) 18 19
-    '/' (47) 21
-    ';' (59) 3 4 5 6
-    '<' (60) 15
-    '=' (61) 25
-    '>' (62) 16
+    '*' (42) 21 29 30
+    '+' (43) 18 28
+    '-' (45) 19 20
+    '/' (47) 22
+    ';' (59) 3 4 5 6 9
+    '<' (60) 16
+    '=' (61) 9
+    '>' (62) 17
     '{' (123) 7 8
     '}' (125) 7 8
     error (256)
-    IncTk (258) 22
-    DecTk (259) 23
+    IncTk (258) 23
+    DecTk (259) 24
     UMINUS (260)
-    NumTk <numv> (261) 26 28 29
-    StrTk <s> (262) 30
-    VarTk <var> (263) 25
+    NumTk <numv> (261) 27 29 30
+    StrTk <s> (262) 31
+    NameTk <var> (263) 9 26
     PrintTk (264) 3
-    EqualTk (265) 11
-    NeEqualTk (266) 12
-    LessEqualTk (267) 13
-    GreaterEqualTk (268) 14
+    EqualTk (265) 12
+    NeEqualTk (266) 13
+    LessEqualTk (267) 14
+    GreaterEqualTk (268) 15
     PrintbTk (269) 4
     PrintStrTk (270) 5
     ForEachTK (271) 6
     IfTk (272) 7
-    ElseTk (273) 7
+    ElseTk (273)
     WhileTk (274) 8
+    VarTk (275) 9
 
 
 Nonterminals, with rules where they appear
 
-    $accept (33)
+    $accept (34)
         on left: 0
-    program (34)
+    program (35)
         on left: 1 2
         on right: 0 1
-    naredba <ins> (35)
-        on left: 3 4 5 6 7 8
-        on right: 1 2 7 9 10
-    niz_naredbi <vec> (36)
-        on left: 9 10
-        on right: 8 9
-    condExpr <expr> (37)
-        on left: 11 12 13 14 15 16
+    naredba <ins> (36)
+        on left: 3 4 5 6 7 8 9
+        on right: 1 2 7 10 11
+    niz_naredbi <vec> (37)
+        on left: 10 11
+        on right: 8 10
+    condExpr <expr> (38)
+        on left: 12 13 14 15 16 17
         on right: 4 7 8
-    expr <expr> (38)
-        on left: 17 18 19 20 21 22 23 24 25 26
-        on right: 3 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
-    strexpr <str_expr> (39)
-        on left: 27 28 29 30
-        on right: 5 27 28 29
-    container (40)
-        on left: 31
+    expr <expr> (39)
+        on left: 18 19 20 21 22 23 24 25 26 27
+        on right: 3 9 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    strexpr <str_expr> (40)
+        on left: 28 29 30 31
+        on right: 5 28 29 30
+    container (41)
+        on left: 32
         on right: 6
 
 
@@ -114,805 +121,820 @@ State 0
     ForEachTK   shift, and go to state 4
     IfTk        shift, and go to state 5
     WhileTk     shift, and go to state 6
+    VarTk       shift, and go to state 7
 
-    program  go to state 7
-    naredba  go to state 8
+    program  go to state 8
+    naredba  go to state 9
 
 
 State 1
 
     3 naredba: PrintTk . '(' expr ')' ';'
 
-    '('  shift, and go to state 9
+    '('  shift, and go to state 10
 
 
 State 2
 
     4 naredba: PrintbTk . '(' condExpr ')' ';'
 
-    '('  shift, and go to state 10
+    '('  shift, and go to state 11
 
 
 State 3
 
     5 naredba: PrintStrTk . '(' strexpr ')' ';'
 
-    '('  shift, and go to state 11
+    '('  shift, and go to state 12
 
 
 State 4
 
     6 naredba: ForEachTK . '(' container ')' ';'
 
-    '('  shift, and go to state 12
+    '('  shift, and go to state 13
 
 
 State 5
 
-    7 naredba: IfTk . '(' condExpr ')' '{' naredba '}' ElseTk '{' naredba '}'
+    7 naredba: IfTk . '(' condExpr ')' '{' naredba '}'
 
-    '('  shift, and go to state 13
+    '('  shift, and go to state 14
 
 
 State 6
 
     8 naredba: WhileTk . '(' condExpr ')' '{' niz_naredbi '}'
 
-    '('  shift, and go to state 14
+    '('  shift, and go to state 15
 
 
 State 7
 
+    9 naredba: VarTk . NameTk '=' expr ';'
+
+    NameTk  shift, and go to state 16
+
+
+State 8
+
     0 $accept: program . $end
     1 program: program . naredba
 
-    $end        shift, and go to state 15
+    $end        shift, and go to state 17
     PrintTk     shift, and go to state 1
     PrintbTk    shift, and go to state 2
     PrintStrTk  shift, and go to state 3
     ForEachTK   shift, and go to state 4
     IfTk        shift, and go to state 5
     WhileTk     shift, and go to state 6
+    VarTk       shift, and go to state 7
 
-    naredba  go to state 16
+    naredba  go to state 18
 
 
-State 8
+State 9
 
     2 program: naredba .
 
     $default  reduce using rule 2 (program)
 
 
-State 9
+State 10
 
     3 naredba: PrintTk '(' . expr ')' ';'
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
-    expr  go to state 20
-
-
-State 10
-
-    4 naredba: PrintbTk '(' . condExpr ')' ';'
-
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
-
-    condExpr  go to state 21
-    expr      go to state 22
+    expr  go to state 22
 
 
 State 11
 
-    5 naredba: PrintStrTk '(' . strexpr ')' ';'
+    4 naredba: PrintbTk '(' . condExpr ')' ';'
 
-    NumTk  shift, and go to state 23
-    StrTk  shift, and go to state 24
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
-    strexpr  go to state 25
+    condExpr  go to state 23
+    expr      go to state 24
 
 
 State 12
 
-    6 naredba: ForEachTK '(' . container ')' ';'
+    5 naredba: PrintStrTk '(' . strexpr ')' ';'
 
-    $default  reduce using rule 31 (container)
+    NumTk  shift, and go to state 25
+    StrTk  shift, and go to state 26
 
-    container  go to state 26
+    strexpr  go to state 27
 
 
 State 13
 
-    7 naredba: IfTk '(' . condExpr ')' '{' naredba '}' ElseTk '{' naredba '}'
+    6 naredba: ForEachTK '(' . container ')' ';'
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
+    $default  reduce using rule 32 (container)
 
-    condExpr  go to state 27
-    expr      go to state 22
+    container  go to state 28
 
 
 State 14
 
-    8 naredba: WhileTk '(' . condExpr ')' '{' niz_naredbi '}'
+    7 naredba: IfTk '(' . condExpr ')' '{' naredba '}'
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
-    condExpr  go to state 28
-    expr      go to state 22
+    condExpr  go to state 29
+    expr      go to state 24
 
 
 State 15
+
+    8 naredba: WhileTk '(' . condExpr ')' '{' niz_naredbi '}'
+
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
+
+    condExpr  go to state 30
+    expr      go to state 24
+
+
+State 16
+
+    9 naredba: VarTk NameTk . '=' expr ';'
+
+    '='  shift, and go to state 31
+
+
+State 17
 
     0 $accept: program $end .
 
     $default  accept
 
 
-State 16
+State 18
 
     1 program: program naredba .
 
     $default  reduce using rule 1 (program)
 
 
-State 17
-
-   19 expr: '-' . expr
-
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
-
-    expr  go to state 29
-
-
-State 18
-
-   26 expr: NumTk .
-
-    $default  reduce using rule 26 (expr)
-
-
 State 19
 
-   25 expr: VarTk . '=' expr
+   20 expr: '-' . expr
 
-    '='  shift, and go to state 30
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
+
+    expr  go to state 32
 
 
 State 20
 
-    3 naredba: PrintTk '(' expr . ')' ';'
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
+   27 expr: NumTk .
 
-    '+'    shift, and go to state 31
-    '-'    shift, and go to state 32
-    IncTk  shift, and go to state 33
-    DecTk  shift, and go to state 34
-    '*'    shift, and go to state 35
-    '/'    shift, and go to state 36
-    '%'    shift, and go to state 37
-    ')'    shift, and go to state 38
+    $default  reduce using rule 27 (expr)
 
 
 State 21
 
-    4 naredba: PrintbTk '(' condExpr . ')' ';'
+   26 expr: NameTk .
 
-    ')'  shift, and go to state 39
+    $default  reduce using rule 26 (expr)
 
 
 State 22
 
-   11 condExpr: expr . EqualTk expr
-   12         | expr . NeEqualTk expr
-   13         | expr . LessEqualTk expr
-   14         | expr . GreaterEqualTk expr
-   15         | expr . '<' expr
-   16         | expr . '>' expr
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
+    3 naredba: PrintTk '(' expr . ')' ';'
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
 
-    '+'             shift, and go to state 31
-    '-'             shift, and go to state 32
-    IncTk           shift, and go to state 33
-    DecTk           shift, and go to state 34
-    '*'             shift, and go to state 35
-    '/'             shift, and go to state 36
-    '%'             shift, and go to state 37
-    EqualTk         shift, and go to state 40
-    NeEqualTk       shift, and go to state 41
-    LessEqualTk     shift, and go to state 42
-    GreaterEqualTk  shift, and go to state 43
-    '<'             shift, and go to state 44
-    '>'             shift, and go to state 45
+    '+'    shift, and go to state 33
+    '-'    shift, and go to state 34
+    IncTk  shift, and go to state 35
+    DecTk  shift, and go to state 36
+    '*'    shift, and go to state 37
+    '/'    shift, and go to state 38
+    '%'    shift, and go to state 39
+    ')'    shift, and go to state 40
 
 
 State 23
 
-   28 strexpr: NumTk . '*' strexpr
+    4 naredba: PrintbTk '(' condExpr . ')' ';'
 
-    '*'  shift, and go to state 46
+    ')'  shift, and go to state 41
 
 
 State 24
 
-   30 strexpr: StrTk .
+   12 condExpr: expr . EqualTk expr
+   13         | expr . NeEqualTk expr
+   14         | expr . LessEqualTk expr
+   15         | expr . GreaterEqualTk expr
+   16         | expr . '<' expr
+   17         | expr . '>' expr
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
 
-    $default  reduce using rule 30 (strexpr)
+    '+'             shift, and go to state 33
+    '-'             shift, and go to state 34
+    IncTk           shift, and go to state 35
+    DecTk           shift, and go to state 36
+    '*'             shift, and go to state 37
+    '/'             shift, and go to state 38
+    '%'             shift, and go to state 39
+    EqualTk         shift, and go to state 42
+    NeEqualTk       shift, and go to state 43
+    LessEqualTk     shift, and go to state 44
+    GreaterEqualTk  shift, and go to state 45
+    '<'             shift, and go to state 46
+    '>'             shift, and go to state 47
 
 
 State 25
 
-    5 naredba: PrintStrTk '(' strexpr . ')' ';'
-   27 strexpr: strexpr . '+' strexpr
-   29        | strexpr . '*' NumTk
+   29 strexpr: NumTk . '*' strexpr
 
-    '+'  shift, and go to state 47
     '*'  shift, and go to state 48
-    ')'  shift, and go to state 49
 
 
 State 26
 
-    6 naredba: ForEachTK '(' container . ')' ';'
+   31 strexpr: StrTk .
 
-    ')'  shift, and go to state 50
+    $default  reduce using rule 31 (strexpr)
 
 
 State 27
 
-    7 naredba: IfTk '(' condExpr . ')' '{' naredba '}' ElseTk '{' naredba '}'
+    5 naredba: PrintStrTk '(' strexpr . ')' ';'
+   28 strexpr: strexpr . '+' strexpr
+   30        | strexpr . '*' NumTk
 
+    '+'  shift, and go to state 49
+    '*'  shift, and go to state 50
     ')'  shift, and go to state 51
 
 
 State 28
 
-    8 naredba: WhileTk '(' condExpr . ')' '{' niz_naredbi '}'
+    6 naredba: ForEachTK '(' container . ')' ';'
 
     ')'  shift, and go to state 52
 
 
 State 29
 
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   19     | '-' expr .
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
+    7 naredba: IfTk '(' condExpr . ')' '{' naredba '}'
 
-    $default  reduce using rule 19 (expr)
+    ')'  shift, and go to state 53
 
 
 State 30
 
-   25 expr: VarTk '=' . expr
+    8 naredba: WhileTk '(' condExpr . ')' '{' niz_naredbi '}'
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
-
-    expr  go to state 53
+    ')'  shift, and go to state 54
 
 
 State 31
 
-   17 expr: expr '+' . expr
+    9 naredba: VarTk NameTk '=' . expr ';'
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
-
-    expr  go to state 54
-
-
-State 32
-
-   18 expr: expr '-' . expr
-
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
     expr  go to state 55
 
 
+State 32
+
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   20     | '-' expr .
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
+
+    $default  reduce using rule 20 (expr)
+
+
 State 33
 
-   22 expr: expr IncTk .
+   18 expr: expr '+' . expr
 
-    $default  reduce using rule 22 (expr)
-
-
-State 34
-
-   23 expr: expr DecTk .
-
-    $default  reduce using rule 23 (expr)
-
-
-State 35
-
-   20 expr: expr '*' . expr
-
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
     expr  go to state 56
 
 
-State 36
+State 34
 
-   21 expr: expr '/' . expr
+   19 expr: expr '-' . expr
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
     expr  go to state 57
 
 
+State 35
+
+   23 expr: expr IncTk .
+
+    $default  reduce using rule 23 (expr)
+
+
+State 36
+
+   24 expr: expr DecTk .
+
+    $default  reduce using rule 24 (expr)
+
+
 State 37
 
-   24 expr: expr '%' . expr
+   21 expr: expr '*' . expr
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
     expr  go to state 58
 
 
 State 38
 
-    3 naredba: PrintTk '(' expr ')' . ';'
+   22 expr: expr '/' . expr
 
-    ';'  shift, and go to state 59
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
+
+    expr  go to state 59
 
 
 State 39
 
-    4 naredba: PrintbTk '(' condExpr ')' . ';'
+   25 expr: expr '%' . expr
 
-    ';'  shift, and go to state 60
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
+
+    expr  go to state 60
 
 
 State 40
 
-   11 condExpr: expr EqualTk . expr
+    3 naredba: PrintTk '(' expr ')' . ';'
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
-
-    expr  go to state 61
+    ';'  shift, and go to state 61
 
 
 State 41
 
-   12 condExpr: expr NeEqualTk . expr
+    4 naredba: PrintbTk '(' condExpr ')' . ';'
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
-
-    expr  go to state 62
+    ';'  shift, and go to state 62
 
 
 State 42
 
-   13 condExpr: expr LessEqualTk . expr
+   12 condExpr: expr EqualTk . expr
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
     expr  go to state 63
 
 
 State 43
 
-   14 condExpr: expr GreaterEqualTk . expr
+   13 condExpr: expr NeEqualTk . expr
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
     expr  go to state 64
 
 
 State 44
 
-   15 condExpr: expr '<' . expr
+   14 condExpr: expr LessEqualTk . expr
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
     expr  go to state 65
 
 
 State 45
 
-   16 condExpr: expr '>' . expr
+   15 condExpr: expr GreaterEqualTk . expr
 
-    '-'    shift, and go to state 17
-    NumTk  shift, and go to state 18
-    VarTk  shift, and go to state 19
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
     expr  go to state 66
 
 
 State 46
 
-   28 strexpr: NumTk '*' . strexpr
+   16 condExpr: expr '<' . expr
 
-    NumTk  shift, and go to state 23
-    StrTk  shift, and go to state 24
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
-    strexpr  go to state 67
+    expr  go to state 67
 
 
 State 47
 
-   27 strexpr: strexpr '+' . strexpr
+   17 condExpr: expr '>' . expr
 
-    NumTk  shift, and go to state 23
-    StrTk  shift, and go to state 24
+    '-'     shift, and go to state 19
+    NumTk   shift, and go to state 20
+    NameTk  shift, and go to state 21
 
-    strexpr  go to state 68
+    expr  go to state 68
 
 
 State 48
 
-   29 strexpr: strexpr '*' . NumTk
+   29 strexpr: NumTk '*' . strexpr
 
-    NumTk  shift, and go to state 69
+    NumTk  shift, and go to state 25
+    StrTk  shift, and go to state 26
+
+    strexpr  go to state 69
 
 
 State 49
 
-    5 naredba: PrintStrTk '(' strexpr ')' . ';'
+   28 strexpr: strexpr '+' . strexpr
 
-    ';'  shift, and go to state 70
+    NumTk  shift, and go to state 25
+    StrTk  shift, and go to state 26
+
+    strexpr  go to state 70
 
 
 State 50
 
-    6 naredba: ForEachTK '(' container ')' . ';'
+   30 strexpr: strexpr '*' . NumTk
 
-    ';'  shift, and go to state 71
+    NumTk  shift, and go to state 71
 
 
 State 51
 
-    7 naredba: IfTk '(' condExpr ')' . '{' naredba '}' ElseTk '{' naredba '}'
+    5 naredba: PrintStrTk '(' strexpr ')' . ';'
 
-    '{'  shift, and go to state 72
+    ';'  shift, and go to state 72
 
 
 State 52
 
-    8 naredba: WhileTk '(' condExpr ')' . '{' niz_naredbi '}'
+    6 naredba: ForEachTK '(' container ')' . ';'
 
-    '{'  shift, and go to state 73
+    ';'  shift, and go to state 73
 
 
 State 53
 
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
-   25     | VarTk '=' expr .
+    7 naredba: IfTk '(' condExpr ')' . '{' naredba '}'
 
-    '+'    shift, and go to state 31
-    '-'    shift, and go to state 32
-    IncTk  shift, and go to state 33
-    DecTk  shift, and go to state 34
-    '*'    shift, and go to state 35
-    '/'    shift, and go to state 36
-    '%'    shift, and go to state 37
-
-    $default  reduce using rule 25 (expr)
+    '{'  shift, and go to state 74
 
 
 State 54
 
-   17 expr: expr . '+' expr
-   17     | expr '+' expr .
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
+    8 naredba: WhileTk '(' condExpr ')' . '{' niz_naredbi '}'
 
-    '*'  shift, and go to state 35
-    '/'  shift, and go to state 36
-    '%'  shift, and go to state 37
-
-    $default  reduce using rule 17 (expr)
+    '{'  shift, and go to state 75
 
 
 State 55
 
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   18     | expr '-' expr .
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
+    9 naredba: VarTk NameTk '=' expr . ';'
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
 
-    '*'  shift, and go to state 35
-    '/'  shift, and go to state 36
-    '%'  shift, and go to state 37
-
-    $default  reduce using rule 18 (expr)
+    '+'    shift, and go to state 33
+    '-'    shift, and go to state 34
+    IncTk  shift, and go to state 35
+    DecTk  shift, and go to state 36
+    '*'    shift, and go to state 37
+    '/'    shift, and go to state 38
+    '%'    shift, and go to state 39
+    ';'    shift, and go to state 76
 
 
 State 56
 
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   20     | expr '*' expr .
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
+   18 expr: expr . '+' expr
+   18     | expr '+' expr .
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
 
-    $default  reduce using rule 20 (expr)
+    '*'  shift, and go to state 37
+    '/'  shift, and go to state 38
+    '%'  shift, and go to state 39
+
+    $default  reduce using rule 18 (expr)
 
 
 State 57
 
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   21     | expr '/' expr .
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   19     | expr '-' expr .
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
 
-    $default  reduce using rule 21 (expr)
+    '*'  shift, and go to state 37
+    '/'  shift, and go to state 38
+    '%'  shift, and go to state 39
+
+    $default  reduce using rule 19 (expr)
 
 
 State 58
 
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
-   24     | expr '%' expr .
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   21     | expr '*' expr .
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
 
-    $default  reduce using rule 24 (expr)
+    $default  reduce using rule 21 (expr)
 
 
 State 59
+
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   22     | expr '/' expr .
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
+
+    $default  reduce using rule 22 (expr)
+
+
+State 60
+
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
+   25     | expr '%' expr .
+
+    $default  reduce using rule 25 (expr)
+
+
+State 61
 
     3 naredba: PrintTk '(' expr ')' ';' .
 
     $default  reduce using rule 3 (naredba)
 
 
-State 60
+State 62
 
     4 naredba: PrintbTk '(' condExpr ')' ';' .
 
     $default  reduce using rule 4 (naredba)
 
 
-State 61
+State 63
 
-   11 condExpr: expr EqualTk expr .
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
+   12 condExpr: expr EqualTk expr .
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
 
-    '+'    shift, and go to state 31
-    '-'    shift, and go to state 32
-    IncTk  shift, and go to state 33
-    DecTk  shift, and go to state 34
-    '*'    shift, and go to state 35
-    '/'    shift, and go to state 36
-    '%'    shift, and go to state 37
-
-    $default  reduce using rule 11 (condExpr)
-
-
-State 62
-
-   12 condExpr: expr NeEqualTk expr .
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
-
-    '+'    shift, and go to state 31
-    '-'    shift, and go to state 32
-    IncTk  shift, and go to state 33
-    DecTk  shift, and go to state 34
-    '*'    shift, and go to state 35
-    '/'    shift, and go to state 36
-    '%'    shift, and go to state 37
+    '+'    shift, and go to state 33
+    '-'    shift, and go to state 34
+    IncTk  shift, and go to state 35
+    DecTk  shift, and go to state 36
+    '*'    shift, and go to state 37
+    '/'    shift, and go to state 38
+    '%'    shift, and go to state 39
 
     $default  reduce using rule 12 (condExpr)
 
 
-State 63
+State 64
 
-   13 condExpr: expr LessEqualTk expr .
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
+   13 condExpr: expr NeEqualTk expr .
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
 
-    '+'    shift, and go to state 31
-    '-'    shift, and go to state 32
-    IncTk  shift, and go to state 33
-    DecTk  shift, and go to state 34
-    '*'    shift, and go to state 35
-    '/'    shift, and go to state 36
-    '%'    shift, and go to state 37
+    '+'    shift, and go to state 33
+    '-'    shift, and go to state 34
+    IncTk  shift, and go to state 35
+    DecTk  shift, and go to state 36
+    '*'    shift, and go to state 37
+    '/'    shift, and go to state 38
+    '%'    shift, and go to state 39
 
     $default  reduce using rule 13 (condExpr)
 
 
-State 64
+State 65
 
-   14 condExpr: expr GreaterEqualTk expr .
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
+   14 condExpr: expr LessEqualTk expr .
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
 
-    '+'    shift, and go to state 31
-    '-'    shift, and go to state 32
-    IncTk  shift, and go to state 33
-    DecTk  shift, and go to state 34
-    '*'    shift, and go to state 35
-    '/'    shift, and go to state 36
-    '%'    shift, and go to state 37
+    '+'    shift, and go to state 33
+    '-'    shift, and go to state 34
+    IncTk  shift, and go to state 35
+    DecTk  shift, and go to state 36
+    '*'    shift, and go to state 37
+    '/'    shift, and go to state 38
+    '%'    shift, and go to state 39
 
     $default  reduce using rule 14 (condExpr)
 
 
-State 65
+State 66
 
-   15 condExpr: expr '<' expr .
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
+   15 condExpr: expr GreaterEqualTk expr .
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
 
-    '+'    shift, and go to state 31
-    '-'    shift, and go to state 32
-    IncTk  shift, and go to state 33
-    DecTk  shift, and go to state 34
-    '*'    shift, and go to state 35
-    '/'    shift, and go to state 36
-    '%'    shift, and go to state 37
+    '+'    shift, and go to state 33
+    '-'    shift, and go to state 34
+    IncTk  shift, and go to state 35
+    DecTk  shift, and go to state 36
+    '*'    shift, and go to state 37
+    '/'    shift, and go to state 38
+    '%'    shift, and go to state 39
 
     $default  reduce using rule 15 (condExpr)
 
 
-State 66
+State 67
 
-   16 condExpr: expr '>' expr .
-   17 expr: expr . '+' expr
-   18     | expr . '-' expr
-   20     | expr . '*' expr
-   21     | expr . '/' expr
-   22     | expr . IncTk
-   23     | expr . DecTk
-   24     | expr . '%' expr
+   16 condExpr: expr '<' expr .
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
 
-    '+'    shift, and go to state 31
-    '-'    shift, and go to state 32
-    IncTk  shift, and go to state 33
-    DecTk  shift, and go to state 34
-    '*'    shift, and go to state 35
-    '/'    shift, and go to state 36
-    '%'    shift, and go to state 37
+    '+'    shift, and go to state 33
+    '-'    shift, and go to state 34
+    IncTk  shift, and go to state 35
+    DecTk  shift, and go to state 36
+    '*'    shift, and go to state 37
+    '/'    shift, and go to state 38
+    '%'    shift, and go to state 39
 
     $default  reduce using rule 16 (condExpr)
 
 
-State 67
-
-   27 strexpr: strexpr . '+' strexpr
-   28        | NumTk '*' strexpr .
-   29        | strexpr . '*' NumTk
-
-    $default  reduce using rule 28 (strexpr)
-
-
 State 68
 
-   27 strexpr: strexpr . '+' strexpr
-   27        | strexpr '+' strexpr .
-   29        | strexpr . '*' NumTk
+   17 condExpr: expr '>' expr .
+   18 expr: expr . '+' expr
+   19     | expr . '-' expr
+   21     | expr . '*' expr
+   22     | expr . '/' expr
+   23     | expr . IncTk
+   24     | expr . DecTk
+   25     | expr . '%' expr
 
-    '*'  shift, and go to state 48
+    '+'    shift, and go to state 33
+    '-'    shift, and go to state 34
+    IncTk  shift, and go to state 35
+    DecTk  shift, and go to state 36
+    '*'    shift, and go to state 37
+    '/'    shift, and go to state 38
+    '%'    shift, and go to state 39
 
-    $default  reduce using rule 27 (strexpr)
+    $default  reduce using rule 17 (condExpr)
 
 
 State 69
 
-   29 strexpr: strexpr '*' NumTk .
+   28 strexpr: strexpr . '+' strexpr
+   29        | NumTk '*' strexpr .
+   30        | strexpr . '*' NumTk
 
     $default  reduce using rule 29 (strexpr)
 
 
 State 70
 
+   28 strexpr: strexpr . '+' strexpr
+   28        | strexpr '+' strexpr .
+   30        | strexpr . '*' NumTk
+
+    '*'  shift, and go to state 50
+
+    $default  reduce using rule 28 (strexpr)
+
+
+State 71
+
+   30 strexpr: strexpr '*' NumTk .
+
+    $default  reduce using rule 30 (strexpr)
+
+
+State 72
+
     5 naredba: PrintStrTk '(' strexpr ')' ';' .
 
     $default  reduce using rule 5 (naredba)
 
 
-State 71
+State 73
 
     6 naredba: ForEachTK '(' container ')' ';' .
 
     $default  reduce using rule 6 (naredba)
 
 
-State 72
+State 74
 
-    7 naredba: IfTk '(' condExpr ')' '{' . naredba '}' ElseTk '{' naredba '}'
+    7 naredba: IfTk '(' condExpr ')' '{' . naredba '}'
 
     PrintTk     shift, and go to state 1
     PrintbTk    shift, and go to state 2
@@ -920,11 +942,12 @@ State 72
     ForEachTK   shift, and go to state 4
     IfTk        shift, and go to state 5
     WhileTk     shift, and go to state 6
+    VarTk       shift, and go to state 7
 
-    naredba  go to state 74
+    naredba  go to state 77
 
 
-State 73
+State 75
 
     8 naredba: WhileTk '(' condExpr ')' '{' . niz_naredbi '}'
 
@@ -934,29 +957,37 @@ State 73
     ForEachTK   shift, and go to state 4
     IfTk        shift, and go to state 5
     WhileTk     shift, and go to state 6
+    VarTk       shift, and go to state 7
 
-    naredba      go to state 75
-    niz_naredbi  go to state 76
-
-
-State 74
-
-    7 naredba: IfTk '(' condExpr ')' '{' naredba . '}' ElseTk '{' naredba '}'
-
-    '}'  shift, and go to state 77
-
-
-State 75
-
-   10 niz_naredbi: naredba .
-
-    $default  reduce using rule 10 (niz_naredbi)
+    naredba      go to state 78
+    niz_naredbi  go to state 79
 
 
 State 76
 
+    9 naredba: VarTk NameTk '=' expr ';' .
+
+    $default  reduce using rule 9 (naredba)
+
+
+State 77
+
+    7 naredba: IfTk '(' condExpr ')' '{' naredba . '}'
+
+    '}'  shift, and go to state 80
+
+
+State 78
+
+   11 niz_naredbi: naredba .
+
+    $default  reduce using rule 11 (niz_naredbi)
+
+
+State 79
+
     8 naredba: WhileTk '(' condExpr ')' '{' niz_naredbi . '}'
-    9 niz_naredbi: niz_naredbi . naredba
+   10 niz_naredbi: niz_naredbi . naredba
 
     PrintTk     shift, and go to state 1
     PrintbTk    shift, and go to state 2
@@ -964,62 +995,28 @@ State 76
     ForEachTK   shift, and go to state 4
     IfTk        shift, and go to state 5
     WhileTk     shift, and go to state 6
-    '}'         shift, and go to state 78
+    VarTk       shift, and go to state 7
+    '}'         shift, and go to state 81
 
-    naredba  go to state 79
-
-
-State 77
-
-    7 naredba: IfTk '(' condExpr ')' '{' naredba '}' . ElseTk '{' naredba '}'
-
-    ElseTk  shift, and go to state 80
+    naredba  go to state 82
 
 
-State 78
+State 80
+
+    7 naredba: IfTk '(' condExpr ')' '{' naredba '}' .
+
+    $default  reduce using rule 7 (naredba)
+
+
+State 81
 
     8 naredba: WhileTk '(' condExpr ')' '{' niz_naredbi '}' .
 
     $default  reduce using rule 8 (naredba)
 
 
-State 79
-
-    9 niz_naredbi: niz_naredbi naredba .
-
-    $default  reduce using rule 9 (niz_naredbi)
-
-
-State 80
-
-    7 naredba: IfTk '(' condExpr ')' '{' naredba '}' ElseTk . '{' naredba '}'
-
-    '{'  shift, and go to state 81
-
-
-State 81
-
-    7 naredba: IfTk '(' condExpr ')' '{' naredba '}' ElseTk '{' . naredba '}'
-
-    PrintTk     shift, and go to state 1
-    PrintbTk    shift, and go to state 2
-    PrintStrTk  shift, and go to state 3
-    ForEachTK   shift, and go to state 4
-    IfTk        shift, and go to state 5
-    WhileTk     shift, and go to state 6
-
-    naredba  go to state 82
-
-
 State 82
 
-    7 naredba: IfTk '(' condExpr ')' '{' naredba '}' ElseTk '{' naredba . '}'
+   10 niz_naredbi: niz_naredbi naredba .
 
-    '}'  shift, and go to state 83
-
-
-State 83
-
-    7 naredba: IfTk '(' condExpr ')' '{' naredba '}' ElseTk '{' naredba '}' .
-
-    $default  reduce using rule 7 (naredba)
+    $default  reduce using rule 10 (niz_naredbi)

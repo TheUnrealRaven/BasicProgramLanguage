@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
 //#include "ast.hpp"
 #include "cond.hpp"
@@ -24,6 +25,8 @@ static bool indicator = false;
 
 extern FILE* yyin;
 
+map<string, Expr*> variables;
+
 
 %}
 
@@ -39,6 +42,8 @@ extern FILE* yyin;
 }
 
 
+
+
 %right '='
 %left '+' '-' IncTk DecTk
 %left '*' '/' '%'
@@ -51,11 +56,13 @@ extern FILE* yyin;
 %token<s> StrTk
 %type<ins> naredba
 %type<vec> niz_naredbi
-%token<var> VarTk
+%token<var> NameTk
+
+
 
 %token PrintTk IncTk DecTk EqualTk NeEqualTk 
 %token LessEqualTk GreaterEqualTk PrintbTk
-%token PrintStrTk ForEachTK IfTk ElseTk WhileTk
+%token PrintStrTk ForEachTK IfTk ElseTk WhileTk VarTk
 
 %%
 
@@ -77,15 +84,28 @@ naredba:
                                                       $$ = new PrintStrings($3);
                                         }
       | ForEachTK '(' container ')' ';' {}
-      | IfTk '(' condExpr ')' '{' naredba '}' ElseTk '{' naredba '}' { 
-                                                                        $$ = new IfElseCondition($3, $6, $10);
-                                                                        $$->run();
-                                                                     } 
+      | IfTk '(' condExpr ')' '{' naredba '}' { 
+                                                 $$ = new IfElseCondition($3, $6);
+                                                // $$->run();
+                                              } 
       | WhileTk '(' condExpr ')' '{' niz_naredbi '}'  { 
                                                           //  $$ = new WhileCondition($6, $3);
                                                            // $$->run();
                                                       }
+      | VarTk NameTk '='  expr ';'  {     
+                                                auto ptr = variables.find(*$2);
+                                                if(ptr != variables.end() && ((*$2) != ptr->first))
+                                                {
+                                                      auto old_value = variables[*$2];
+                                                      cout << "Reorder" << endl;
+                                                      delete old_value;
+                                                }
+                                                auto tmp = new Variable($4);
+                                                variables[*$2] = tmp;
+                                                //$$ = tmp; 
+                                    }
       ;
+      
 niz_naredbi: niz_naredbi naredba {$$->push_back($2); }
       | naredba { 
                   $$ = new vector<Instruction*>();
@@ -111,7 +131,15 @@ expr:
       | expr IncTk { $$ = new IncExprAst($1); }
       | expr DecTk { $$ = new DecExprAst($1); }
       | expr '%' expr { $$ = new ModExprAst($1, $3); }
-      | VarTk '=' expr {}
+      | NameTk { 
+                  auto it = variables.find(*$1);
+                  if(it == variables.end())
+                  {
+                        cerr << "Variable doesn't exist" << endl;
+                        exit(EXIT_FAILURE);
+                  }
+                  $$ = variables[*$1];
+               }
       | NumTk { $$ = new Constant($1); }
       ;
       

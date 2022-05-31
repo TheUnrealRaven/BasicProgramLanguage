@@ -54,7 +54,7 @@ extern int yydebug;
     UMINUS = 260,
     NumTk = 261,
     StrTk = 262,
-    VarTk = 263,
+    NameTk = 263,
     PrintTk = 264,
     EqualTk = 265,
     NeEqualTk = 266,
@@ -65,7 +65,8 @@ extern int yydebug;
     ForEachTK = 271,
     IfTk = 272,
     ElseTk = 273,
-    WhileTk = 274
+    WhileTk = 274,
+    VarTk = 275
   };
 #endif
 
@@ -73,7 +74,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 30 "parser.ypp"
+#line 33 "parser.ypp"
 
    int numv;
    Expr *expr;
@@ -84,7 +85,7 @@ union YYSTYPE
    std::string *var;
    
 
-#line 88 "parser.tab.hpp"
+#line 89 "parser.tab.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

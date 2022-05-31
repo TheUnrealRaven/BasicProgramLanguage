@@ -311,6 +311,20 @@ ExprStr* StrMulAst::copy() const
       return new StrMulAst(*this);
 }
 
+ int Variable::value() const 
+ {
+      return _expr->value();
+ }
+ Expr* Variable::copy() const 
+ {
+      return new Variable(*this);
+ }
+Variable::~Variable() 
+{
+      if(_expr != nullptr)
+            delete _expr;
+}
+
 
       
 
